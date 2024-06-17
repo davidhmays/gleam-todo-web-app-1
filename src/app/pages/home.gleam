@@ -61,7 +61,9 @@ fn item(item: Item) -> Element(t) {
         [button([class("todo__button")], [svg_icon_checked()])],
       ),
       span([class("todo__title")], [text(item.title)]),
+      
     ]),
+    
     form(
       [
         attribute.method("POST"),
