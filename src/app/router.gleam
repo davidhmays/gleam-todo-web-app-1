@@ -12,7 +12,7 @@ pub fn handle_request(req: Request, ctx: Context) -> Response {
 
   case wisp.path_segments(req) {
     [] -> {
-      [pages.home(ctx.items)]
+      [pages.home()]
       |> layout
       |> element.to_document_string_builder
       |> wisp.html_response(200)

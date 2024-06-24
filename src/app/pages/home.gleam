@@ -2,15 +2,43 @@ import app/models/item.{type Item, Completed, Uncompleted}
 import gleam/list
 import lustre/attribute.{autofocus, class, name, placeholder}
 import lustre/element.{type Element, text}
-import lustre/element/html.{button, div, form, h1, input, span, svg}
+import lustre/element/html.{a, button, div, form, h1, input, main, span, svg}
 import lustre/element/svg
 
-pub fn root(items: List(Item)) -> Element(t) {
-  div([class("app")], [
-    h1([class("app-title")], [text("Todo App")]),
-    todos(items),
-  ])
-}
+pub fn root() -> Element(t) {
+  div([attribute.class("container1")], 
+      [top_nav(),
+       main_nav(),
+       hero()])}
+
+fn top_nav() -> Element(t) {
+  div([attribute.class("top-nav")], 
+      [a([attribute.href("#")], [text("SCHEDULE")]),
+       a([attribute.href("#")], [text("CONTACT")]),
+       a([attribute.href("#")], [text("MY ACCOUNT")])])}
+
+fn main_nav() -> Element(t) {
+  div([attribute.class("main-nav")], 
+      [logo(),
+       nav_links()])}
+
+fn logo() -> Element(t) {
+  div([attribute.class("logo-container")], 
+      [html.img([attribute.alt("Logo"),
+                 attribute.src("./assets/logo.svg"),
+                 attribute.class("logo")]),
+       html.span([attribute.class("company-name")], 
+                 [text("THE PICKUP PUG")])])}
+
+fn nav_links() -> Element(t) {
+  div([attribute.class("nav-links")], 
+      [a([attribute.href("#")], [text("Home")]),
+       a([attribute.href("#")], [text("About")]),
+       a([attribute.href("#")], [text("Residential")]),
+       a([attribute.href("#")], [text("Commercial")])])}
+
+fn main_content() -> Element(t) {
+  main([], [hero()])}
 
 fn todos(items: List(Item)) -> Element(t) {
   div([class("todos")], [
@@ -44,6 +72,10 @@ fn todos_input() -> Element(t) {
   )
 }
 
+fn hero() -> Element(t) {
+
+}
+
 fn item(item: Item) -> Element(t) {
   let completed_class: String = {
     case item.status {
@@ -61,9 +93,7 @@ fn item(item: Item) -> Element(t) {
         [button([class("todo__button")], [svg_icon_checked()])],
       ),
       span([class("todo__title")], [text(item.title)]),
-      
     ]),
-    
     form(
       [
         attribute.method("POST"),
